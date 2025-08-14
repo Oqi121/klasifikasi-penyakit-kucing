@@ -2,7 +2,7 @@
   "build": {
     "builder": "NIXPACKS",
     "buildCommand": "pip install -r requirements.txt",
-    "startCommand": "python app.py"
+    "startCommand": "uvicorn main:app --host 0.0.0.0 --port 8080"
   },
   "root": "backend"
 }
