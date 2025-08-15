@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
+import Head from "next/head"
 
 const penyakitInfo = [
   {
@@ -66,7 +67,7 @@ export default function Home() {
     try {
       const formData = new FormData()
       formData.append("file", image)
-      const response = await axios.post("http://localhost:8000/predict", formData, {
+      const response = await axios.post("https://oqi121-klasifikasi-penyakit-kucing.hf.space/predict", formData, {
         headers: { "Content-Type": "multipart/form-data" },
         timeout: 30000,
       })
@@ -124,6 +125,16 @@ export default function Home() {
   }
 
   return (
+     <>
+    <Head>
+      <title>🐱 MeowScan - Deteksi Penyakit Kucing</title>
+      <meta
+        name="description"
+        content="Deteksi penyakit kulit kucing menggunakan model AI YOLOv11"
+      />
+    </Head>
+    
+
     <div className="min-h-screen bg-gray-950 p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -254,5 +265,6 @@ export default function Home() {
         )}
       </div>
     </div>
+    </>
   )
 }
