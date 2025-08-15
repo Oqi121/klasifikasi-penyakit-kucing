@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Badge } from "@/components/ui/badge"
-import Head from "next/head"
 
 const penyakitInfo = [
   {
@@ -32,7 +31,7 @@ const penyakitInfo = [
   },
 ]
 
-export default function Home() {
+export default function Page() {
   const [image, setImage] = useState<File | null>(null)
   const [preview, setPreview] = useState<string | null>(null)
   const [result, setResult] = useState<{ prediction: string; confidence: number } | null>(null)
@@ -125,16 +124,6 @@ export default function Home() {
   }
 
   return (
-     <>
-    <Head>
-      <title>🐱 MeowScan - Deteksi Penyakit Kucing</title>
-      <meta
-        name="description"
-        content="Deteksi penyakit kulit kucing menggunakan model AI YOLOv11"
-      />
-    </Head>
-    
-
     <div className="min-h-screen bg-gray-950 p-4">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
@@ -169,27 +158,24 @@ export default function Home() {
               onChange={handleChange}
               className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-emerald-900 file:text-emerald-200 hover:file:bg-emerald-800"
             />
-{preview && (
-  <div className="space-y-3">
-    <div className="relative group">
-      <img
-        src={preview}
-        alt="Preview"
-        className="max-w-full max-h-64 mx-auto rounded-lg border border-gray-700 shadow-lg transition-transform duration-300 group-hover:scale-105"
-      />
-      {/* Label kecil di pojok kiri atas */}
-      <span className="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
-        Preview
-      </span>
-    </div>
-    <Button
-      onClick={resetForm}
-      className="w-full bg-rose-600 hover:bg-rose-900 text-white"
-    >
-      🗑 Hapus Gambar
-    </Button>
-  </div>
-)}
+            {preview && (
+              <div className="space-y-3">
+                <div className="relative group">
+                  <img
+                    src={preview || "/placeholder.svg"}
+                    alt="Preview"
+                    className="max-w-full max-h-64 mx-auto rounded-lg border border-gray-700 shadow-lg transition-transform duration-300 group-hover:scale-105"
+                  />
+                  {/* Label kecil di pojok kiri atas */}
+                  <span className="absolute top-2 left-2 bg-black/60 text-white text-xs px-2 py-1 rounded">
+                    Preview
+                  </span>
+                </div>
+                <Button onClick={resetForm} className="w-full bg-rose-600 hover:bg-rose-900 text-white">
+                  🗑 Hapus Gambar
+                </Button>
+              </div>
+            )}
 
             {error && (
               <Alert variant="destructive">
@@ -225,8 +211,8 @@ export default function Home() {
                       result.confidence >= 0.8
                         ? "text-emerald-400"
                         : result.confidence >= 0.6
-                        ? "text-cyan-400"
-                        : "text-rose-400"
+                          ? "text-cyan-400"
+                          : "text-rose-400"
                     }`}
                   >
                     {(result.confidence * 100).toFixed(1)}%
@@ -238,8 +224,8 @@ export default function Home() {
                       result.confidence >= 0.8
                         ? "bg-gradient-to-r from-emerald-600 to-emerald-500"
                         : result.confidence >= 0.6
-                        ? "bg-gradient-to-r from-cyan-600 to-cyan-500"
-                        : "bg-gradient-to-r from-rose-600 to-rose-500"
+                          ? "bg-gradient-to-r from-cyan-600 to-cyan-500"
+                          : "bg-gradient-to-r from-rose-600 to-rose-500"
                     }`}
                     style={{ width: `${result.confidence * 100}%` }}
                   />
@@ -252,11 +238,17 @@ export default function Home() {
               </div>
               {/* Buttons */}
               <div className="flex gap-3">
-                <Button onClick={resetForm} variant="default" 
-                className="flex-1 bg-black border-gray-600 text-gray-200 hover:bg-gray-700">
+                <Button
+                  onClick={resetForm}
+                  variant="default"
+                  className="flex-1 bg-black border-gray-600 text-gray-200 hover:bg-gray-700"
+                >
                   🔄 Klasifikasi Lagi
                 </Button>
-                <Button onClick={() => window.print()} className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white">
+                <Button
+                  onClick={() => window.print()}
+                  className="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white"
+                >
                   📄 Cetak Hasil
                 </Button>
               </div>
@@ -265,6 +257,5 @@ export default function Home() {
         )}
       </div>
     </div>
-    </>
   )
 }
