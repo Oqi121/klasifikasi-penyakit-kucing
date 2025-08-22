@@ -158,6 +158,7 @@ export default function Page() {
               onChange={handleChange}
               className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-medium file:bg-emerald-900 file:text-emerald-200 hover:file:bg-emerald-800"
             />
+            
             {preview && (
               <div className="space-y-3">
                 <div className="relative group">
